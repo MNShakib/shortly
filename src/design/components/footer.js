@@ -96,6 +96,11 @@ const Boost = styled.div`
   button:hover {
     opacity: 0.6;
   }
+  @media (max-width: 4200px) {
+    h1 {
+      font-size: calc(18px + 6 * ((100vw - 320px) / 680));
+    }
+  }
 `;
 const Content = styled.div`
   padding: 4rem 8rem 5rem 8rem;
@@ -126,10 +131,19 @@ const Content = styled.div`
   .design1 {
     width: 60%;
   }
+  @media (max-width: 960px) {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 const Column = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  @media (max-width: 960px) {
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 export default Footer;

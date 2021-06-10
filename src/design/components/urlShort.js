@@ -9,7 +9,7 @@ import customizable from "../../images/icon-fully-customizable.svg";
 //Axios
 import axios from "axios";
 //Components
-// import Links from "./link";
+import Links from "./link";
 
 const Short = () => {
   const [urlLink, setUrl] = useState("");
@@ -28,10 +28,10 @@ const Short = () => {
         console.log(urlLink, shorten.data.result.full_short_link);
         setShortLink((prevState) => {
           return {
-            url: [...prevState.url, urlLink],
+            url: [urlLink, ...prevState.url],
             shortUrl: [
-              ...prevState.shortUrl,
               shorten.data.result.full_short_link,
+              ...prevState.shortUrl,
             ],
           };
         });
@@ -60,32 +60,22 @@ const Short = () => {
           <input className="submitForm" type="submit" value="Shorten it!" />
         </form>
       </Work>
-      {shortLink.url.length &&
+      {shortLink.url.length > 0 &&
         shortLink.url.map((val, idx) => (
-          <Links>
-            <h3>{val}</h3>
-            <span>
-              <p>{shortLink.shortUrl[idx]}</p>
-              <button>copy</button>
-            </span>
-          </Links>
+          <Links url={val} shortenUrl={shortLink.shortUrl[idx]} />
         ))}
-      <Links>
-        <h3>htpdjfsdvnsdbgsjdbvjkfdjkbadjkfbjkabjkasb</h3>
-        <span>
-          <p>adjkgdjkagdkagdkj</p>
-          <button>copy</button>
-        </span>
-      </Links>
+
       <h1 className="stats">Advanced Statistics</h1>
-      <h3>Track how your links are performing across the web with</h3>
-      <h3>our advanced statistics dashboard</h3>
+      <h3>
+        Track how your links are performing across the web with our advanced
+        statistics dashboard
+      </h3>
       <CardDesign>
         <Card>
           <div className="circle">
             <img src={brandRecognition} alt="Recognition" />
           </div>
-          <div>
+          <div className="text">
             <h1>Brand Recognition</h1>
             <h3>
               Boost your brand recognition with each click. Generic links do not
@@ -98,7 +88,7 @@ const Short = () => {
           <div className="circle">
             <img src={detailRecord} alt="detail" />
           </div>
-          <div>
+          <div className="text">
             <h1>Brand Recognition</h1>
             <h3>
               Boost your brand recognition with each click. Generic links do not
@@ -108,10 +98,10 @@ const Short = () => {
         </Card>
         <Dash></Dash>
         <Card className="card2">
+          <div className="circle">
+            <img src={customizable} alt="Recognition" />
+          </div>
           <div className="text">
-            <div className="circle">
-              <img src={customizable} alt="Recognition" />
-            </div>
             <h1>Brand Recognition</h1>
             <h3>
               Boost your brand recognition with each click. Generic links do not
@@ -135,15 +125,20 @@ const Container = styled.div`
   position: relative;
   h1 {
     margin-bottom: 10px;
+    text-align: center;
   }
   h3 {
     font-size: 18px;
     color: #9e9aa7;
     letter-spacing: 0.05cm;
     font-weight: 700;
+    text-align: center;
   }
   .stats {
     margin-top: 80px;
+  }
+  @media (max-width: 475px) {
+    padding: 0 2rem;
   }
 `;
 
@@ -189,49 +184,59 @@ const Work = styled.div`
     .submitForm:hover {
       opacity: 0.6;
     }
+    @media (max-width: 999px) {
+      .submitForm,
+      .submitLink {
+        width: 100%;
+        margin-left: 0;
+      }
+      form {
+        padding: 0;
+      }
+    }
   }
 `;
 
-const Links = styled.div`
-  width: 100%;
-  height: 80px;
-  background: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  margin-bottom: 10px;
-  h3 {
-    color: black;
-  }
-  span {
-    color: #2acfcf;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    p {
-      padding-right: 1rem;
-    }
-  }
-  button {
-    width: 150px;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    background-color: #2acfcf;
-    font-family: "Poppins", sans-serif;
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.5s ease;
-  }
-  button:hover {
-    opacity: 0.6;
-  }
-`;
+// const Links = styled.div`
+//   width: 100%;
+//   height: 80px;
+//   background: white;
+//   border-radius: 5px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 2rem;
+//   margin-bottom: 10px;
+//   h3 {
+//     color: black;
+//   }
+//   span {
+//     color: #2acfcf;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: row;
+//     p {
+//       padding-right: 1rem;
+//     }
+//   }
+//   button {
+//     width: 150px;
+//     height: 50px;
+//     border-radius: 10px;
+//     border: none;
+//     background-color: #2acfcf;
+//     font-family: "Poppins", sans-serif;
+//     color: white;
+//     font-size: 18px;
+//     font-weight: 700;
+//     cursor: pointer;
+//     transition: all 0.5s ease;
+//   }
+//   button:hover {
+//     opacity: 0.6;
+//   }
+// `;
 
 const CardDesign = styled.div`
   display: flex;
@@ -244,6 +249,18 @@ const CardDesign = styled.div`
   }
   .card2 {
     bottom: -80px;
+  }
+  @media (max-width: 999px) {
+    flex-direction: column;
+    .card1 {
+      bottom: 0px;
+    }
+    .card2 {
+      bottom: 0px;
+    }
+    .text {
+      text-align: center;
+    }
   }
 `;
 
@@ -275,12 +292,22 @@ const Card = styled.div`
   .text {
     margin-bottom: 10px;
   }
+  @media (max-width: 999px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const Dash = styled.div`
   width: 35px;
   height: 10px;
   background-color: #2acfcf;
+  @media (max-width: 999px) {
+    width: 10px;
+    height: 70px;
+  }
 `;
 
 export default Short;

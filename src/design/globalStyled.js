@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 ::-webkit-scrollbar {
   width: 0.5rem;
@@ -14,11 +14,11 @@ const GlobalStyle = createGlobalStyle`
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #23d997;
+  background: #2acfcf;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: grey;
+  background: #35323e;
 }
 html{
     @media (max-width: 1200px){

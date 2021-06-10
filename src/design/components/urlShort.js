@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //style
 import styled from "styled-components";
 //Image
@@ -6,19 +6,78 @@ import bgShorten from "../../images/bg-shorten-desktop.svg";
 import brandRecognition from "../../images/icon-brand-recognition.svg";
 import detailRecord from "../../images/icon-detailed-records.svg";
 import customizable from "../../images/icon-fully-customizable.svg";
+//Axios
+import axios from "axios";
+//Components
+// import Links from "./link";
 
 const Short = () => {
+  const [urlLink, setUrl] = useState("");
+  const [shortLink, setShortLink] = useState({ url: [], shortUrl: [] });
+
+  console.log(shortLink);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (event.target.value == "") {
+    } else {
+      try {
+        const shorten = await axios.get(
+          `https://api.shrtco.de/v2/shorten?url=${urlLink}`
+        );
+
+        console.log(urlLink, shorten.data.result.full_short_link);
+        setShortLink((prevState) => {
+          return {
+            url: [...prevState.url, urlLink],
+            shortUrl: [
+              ...prevState.shortUrl,
+              shorten.data.result.full_short_link,
+            ],
+          };
+        });
+        setUrl("");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setUrl(event.target.value);
+  };
+
   return (
     <Container>
       <Work>
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup lorem
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup lorem
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup lorem
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup lorem
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup lorem
-        lorem isup lorem lorem isup lorem lorem isup lorem lorem isup
+        <form onSubmit={handleSubmit}>
+          <input
+            className="submitLink"
+            type="text"
+            value={urlLink}
+            placeholder="Shorten a link here..."
+            onChange={handleChange}
+          />
+          <input className="submitForm" type="submit" value="Shorten it!" />
+        </form>
       </Work>
-      <h1>Advanced Statistics</h1>
+      {shortLink.url.length &&
+        shortLink.url.map((val, idx) => (
+          <Links>
+            <h3>{val}</h3>
+            <span>
+              <p>{shortLink.shortUrl[idx]}</p>
+              <button>copy</button>
+            </span>
+          </Links>
+        ))}
+      <Links>
+        <h3>htpdjfsdvnsdbgsjdbvjkfdjkbadjkfbjkabjkasb</h3>
+        <span>
+          <p>adjkgdjkagdkagdkj</p>
+          <button>copy</button>
+        </span>
+      </Links>
+      <h1 className="stats">Advanced Statistics</h1>
       <h3>Track how your links are performing across the web with</h3>
       <h3>our advanced statistics dashboard</h3>
       <CardDesign>
@@ -83,15 +142,95 @@ const Container = styled.div`
     letter-spacing: 0.05cm;
     font-weight: 700;
   }
+  .stats {
+    margin-top: 80px;
+  }
 `;
 
 const Work = styled.div`
   position: relative;
+  width: 100%;
   height: 150px;
   background-color: #3b3054;
   border-radius: 10px;
   background-image: url(${bgShorten});
   top: -75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  form {
+    width: 100%;
+    padding: 0 3rem;
+    .submitLink {
+      width: 78%;
+      height: 50px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: left;
+      text-indent: 0.5cm;
+    }
+    input::-webkit-input-placeholder {
+      color: #bfbfbf;
+    }
+    .submitForm {
+      width: 18%;
+      margin-left: 10px;
+      height: 50px;
+      border-radius: 8px;
+      background-color: #2acfcf;
+      font-family: "Poppins", sans-serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 0;
+    }
+    .submitForm:hover {
+      opacity: 0.6;
+    }
+  }
+`;
+
+const Links = styled.div`
+  width: 100%;
+  height: 80px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  margin-bottom: 10px;
+  h3 {
+    color: black;
+  }
+  span {
+    color: #2acfcf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    p {
+      padding-right: 1rem;
+    }
+  }
+  button {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #2acfcf;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+  button:hover {
+    opacity: 0.6;
+  }
 `;
 
 const CardDesign = styled.div`

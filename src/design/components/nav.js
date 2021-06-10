@@ -26,6 +26,7 @@ const Nav = () => {
 };
 
 const NavBar = styled.nav`
+  width: 100%;
   min-height: 10vh;
   padding: 2rem 8rem 1.5rem;
   display: flex;
@@ -40,6 +41,9 @@ const NavBar = styled.nav`
   img {
     width: 120px;
     height: 30px;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 0;
   }
 `;
 
@@ -74,6 +78,9 @@ const List = styled.ul`
   li:hover {
     color: black;
     cursor: pointer;
+  }
+  @media screen and (max-width: 750px) {
+    display: none;
   }
 `;
 

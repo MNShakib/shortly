@@ -17,17 +17,25 @@ const Intro = () => {
         <button>Get Started</button>
       </Text>
       <Image>
-        <img src={working} />
+        <img src={working} all="working" />
       </Image>
     </Container>
   );
 };
 
 const Container = styled.section`
+  width: 100%;
   padding: 2rem 0 1.5rem 8rem;
+  margin-bottom: 150px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
+  @media screen and (max-width: 750px) {
+    flex-direction: column-reverse;
+    padding: 1rem 0 1rem 1rem;
+    text-align: center;
+  }
 `;
 const Text = styled.div`
   width: 50%;
@@ -54,9 +62,23 @@ const Text = styled.div`
   button:hover {
     opacity: 0.6;
   }
+  @media screen and (max-width: 750px) {
+    width: 100%;
+    font-size: 18px;
+  }
 `;
 const Image = styled.div`
   width: 50%;
+  img {
+    width: 110%;
+  }
+  @media screen and (max-width: 750px) {
+    width: 100%;
+    img {
+      width: 110%;
+    }
+  }
+  overflow: hidden;
 `;
 
 export default Intro;

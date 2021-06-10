@@ -30,6 +30,7 @@ body{
     overflow-x: hidden;
     font-size:18px;
     font-family: 'Poppins', sans-serif;
+    
 }
 body>*{
     width: 100%;

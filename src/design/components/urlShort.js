@@ -67,7 +67,7 @@ const Short = () => {
 
 const Container = styled.div`
   width: 100%;
-  padding: 0 8rem;
+  padding: 0 8rem 8rem 8rem;
   display: flex;
   justify-content: center;
   align-items: center;

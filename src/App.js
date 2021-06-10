@@ -6,6 +6,7 @@ import GlobalStyle from "./design/globalStyled";
 import Nav from "./design/components/nav";
 import Intro from "./design/components/intro";
 import Short from "./design/components/urlShort";
+import Footer from "./design/components/footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Nav />
       <Intro />
       <Short />
+      <Footer />
     </Main>
   );
 }
